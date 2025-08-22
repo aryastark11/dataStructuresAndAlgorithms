@@ -1,0 +1,118 @@
+// LINKED LIST WITHOUT TAIL
+// in C, SINGLY LINKEDLIST - data and node* storing dthe value at node X and address of node (X+1)
+/* This code has SINGLY LINKEDLIST without tail using structure.
+
+The time complexity of is as follows:
+Insert - 
+Delete -
+Print - Traverse
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure to denote a node in SINGLY LINKEDLIST.
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to print the full LinkedList.
+void print(struct Node* head){
+    struct Node* tempNode = head;
+    printf("Printing the whole LINKED_LIST\n");
+    while(tempNode != NULL){
+        printf(" %d ", tempNode->data);
+        tempNode = tempNode->next;
+    }
+    printf("\n");
+}
+
+struct Node* createNode(int value){
+    // create a new struct Node.
+    // assign data = value passed and address of next Node = NULL.
+    // return this NewNode.
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+};
+
+void insertAtFirst(struct Node** head, int value){
+    // Insert at the beginning of the linkedList.
+    struct Node* newNode;
+    newNode = createNode(value);
+    newNode->next = *head;  // pointer of newNode points to current HEAD
+    *head = newNode; // HEAD = new Node ( first node is the new node created)
+    return;
+};
+
+void insertAtEnd(struct Node** head, int value){
+    // Insert at the beginning of the linkedList.
+    struct Node* newNode;
+    newNode = createNode(value);
+    // if LinkedList is NULL, head is the new Node created.
+    if (*head == NULL){
+        *head = newNode;
+        return;
+    }
+   // if LinkedList is not NULL, traverse to the end of the existing LinkedList, and add the node.
+    struct Node* tempNode = *head;
+    while(tempNode->next != NULL){
+        tempNode = tempNode->next;
+    } // points to the end of Last node.
+    tempNode->next = newNode; // create the LINK.
+    return;
+};
+
+void insertAtPosition()
+{
+}
+
+void deleteFromFirst(){
+}
+
+void deleteFromEnd(){
+}
+
+void deleteAtPosition(){
+}
+
+
+int main() {
+    struct Node* head = NULL;
+
+    insertAtFirst(&head, 10);
+    printf("Linked list after inserting the node:10 at the beginning \n");
+    print(head);
+    
+    printf("Linked list after inserting the node:20 at the end \n");
+    insertAtEnd(&head, 20);
+    print(head); 
+    
+    printf("Linked list after inserting the node:5 at the end \n");
+    insertAtEnd(&head, 5);
+    print(head); 
+    
+    printf("Linked list after inserting the node:30 at the end \n");
+    insertAtEnd(&head, 30);
+    print(head);
+    
+    // printf("Linked list after inserting the node:15 at position 2 \n");
+    // insertAtPosition(&head, 15, 2);
+    // print(head);
+    
+    // printf("Linked list after deleting the first node: \n");
+    // deleteFromFirst(&head);
+    // print(head); 
+    
+    // printf("Linked list after deleting the last node: \n");
+    // deleteFromEnd(&head);
+    // print(head); 
+    
+    // printf("Linked list after deleting the node at position 1: \n");
+    // deleteAtPosition(&head, 1);
+    // print(head); 
+
+    return 0;
+}
