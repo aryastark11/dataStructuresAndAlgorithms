@@ -228,6 +228,19 @@ int main() {
     // deleteAtPosition(&head, 2);
     deleteAtPosition(&head, 1);
     print(head);
+    printf("Linked list after inserting the node:150 at position 2\n");
+    insertAtPosition(&head, 150, 2); // invalid. there is only one element in LL.
+    // correct position to insert = 0 / 1
+    insertAtPosition(&head, 150, 0);
+    print(head);
 
+    deleteFromFirst(&head);
+    deleteFromEnd(&head);
+    print(head);
+
+    insertAtPosition(&head, 150, 1);
+    insertAtEnd(&head, 160);
+
+    print(head);
     return 0;
 }
