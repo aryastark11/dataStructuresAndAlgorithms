@@ -1,4 +1,8 @@
-/* LINKED LIST WITHOUT TAIL
+/*
+===============================================================================
+                    SINGLE LINKED LIST WITHOUT TAIL POINTER
+===============================================================================
+
 in C, SINGLY LINKEDLIST - data and node* storing dthe value at node X and address of node (X+1)
 This code has SINGLY LINKEDLIST without tail using structure.
 
@@ -10,6 +14,10 @@ Delete from beginning: O(1) - update head pointer
 Delete from end: O(n) - traverse to find second-to-last node
 Search: O(n) - linear traversal required
 Space: O(1) extra space (only head pointer needed)
+
+
+malloc - allocate memory (create node)
+free - delete memory that is allocated.
 */
 
 #include <stdio.h>
@@ -27,7 +35,7 @@ void print(struct Node* head){
     struct Node* tempNode = head;
     printf("Printing the whole LINKED_LIST\n");
     while(tempNode != NULL){
-        printf(" %d ", tempNode->data);
+        printf(" %d -> ", tempNode->data);
         tempNode = tempNode->next;
     }
     printf("\n");
