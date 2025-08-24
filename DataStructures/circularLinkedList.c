@@ -1,6 +1,17 @@
-// CIRCULAR LINKED LIST
-// Circular LinkedList - data and node* storing the value at node X and address of node (X+1)
-/* This code has circular LinkedList which has a cycle.
+/* CIRCULAR LINKED LIST
+
+A circular linked list is a variation of linked list where the last node points back to the first node,
+forming a circle. Unlike regular linked lists that end with NULL, circular lists have no definitive end.
+
+Key Characteristics
+No NULL pointers: Last node connects to first node
+Continuous traversal: Can loop infinitely through nodes
+Single entry point: Typically maintain pointer to last node (easier insertion)
+Memory efficient: No wasted NULL pointer space
+
+Types
+Singly Circular: Each node points to next, last→first
+Doubly Circular: Bidirectional pointers, forms complete circle
 
 The time complexity of is as follows:
 Insert - 
@@ -12,6 +23,7 @@ Print - Traverse
 #include <stdio.h>
 #include <stdlib.h>
 
+void checkIfCircular(struct Node** head);
 void insertAtFirst(struct Node** head, int value);
 void insertAtEnd(struct Node** head, int value);
 void deleteFromFirst(struct Node** head);
@@ -25,12 +37,29 @@ struct Node {
     struct Node* next;    // pointer to a structure node. Hence its of type Node as well. 
 };
 
+
+// scan through the full LinkedList, check if &head == temp->next
+// if yes, then there is a cycle (circular), else there is no circle.
+void checkIfCircular(struct Node** head){
+    struct Node* tempNode = *head;
+    while(tempNode->next != NULL){
+        tempNode = tempNode->next;
+    }
+    if(tempNode->next == *head){
+        printf("The linked list is circular\n");
+    }
+    else{
+        printf("The linked list is NOT circular\n");
+    }
+    return;
+}
+
 // Function to print the full LinkedList.
 void print(struct Node* head){
     struct Node* tempNode = head;
     printf("Printing the whole LINKED_LIST\n");
-    while(tempNode != NULL){
-        printf(" %d ", tempNode->data);
+    while(tempNode->next != head){
+        printf(" %d -> ", tempNode->data);
         tempNode = tempNode->next;
     }
     printf("\n");
@@ -133,29 +162,48 @@ void deleteFromEnd(struct Node** head){
     tempNode->next = NULL;
 }
 
-void deleteAtPosition(){
+void deleteAtPosition(struct Node** head, int position){
+    // calculate the length of the linkedList.
+    int len = 0;
+    struct Node* tempNode = *head;
+    while(tempNode != NULL){
+        len = len + 1;
+        tempNode = tempNode->next;
+    }
+    // if position is greater than the length of the linkedList, return.
+    if(position >= len || position < 0){
+        printf("Position selected is invalid, so element cannot be deleted\n");
+        return;
+    }
 
+    if(position==0){ // delete the HEAD
+        deleteFromFirst(head);
+        return;
+    }
+    if(position == len-1){ // delete the last node
+        deleteFromEnd(head);
+        return;
+    }
+
+    tempNode = *head;
+    int index = 0;
+    while(index<position-1){
+        tempNode = tempNode->next;
+        index = index + 1;
+    } // tempNode is the node that is before the node to be deleted (Previous node.)
+    struct Node* nodeToBeDeleted = tempNode->next;
+    tempNode->next = nodeToBeDeleted->next; // next->next;
+    free(nodeToBeDeleted);  // delete or remove the node.
 }
 
 
 int main() {
     struct Node* head = NULL;
 
+    printf("This is CIRCULAR LINKEDLIST \n");
     insertAtFirst(&head, 10);
     printf("Linked list after inserting the node:10 at the beginning \n");
-    print(head);
-    
-    printf("Linked list after inserting the node:20 at the end \n");
-    insertAtEnd(&head, 20);
     print(head); 
-    
-    printf("Linked list after inserting the node:5 at the end \n");
-    insertAtEnd(&head, 5);
-    print(head); 
-    
-    printf("Linked list after inserting the node:30 at the end \n");
-    insertAtEnd(&head, 30);
-    print(head);
     
     // Positioning index starts from 0 to len(LinkedList) - 1
     printf("Linked list after inserting the node:150 at position 2 \n");
@@ -174,12 +222,12 @@ int main() {
     printf("Linked list after deleting the first node: \n");
     deleteFromFirst(&head);
     print(head);
-    printf("Linked list after deleting the last node: \n");
-    deleteFromEnd(&head);
-    print(head);
-
     // Positioning index starts from 0 to len(LinkedList) - 1
-    printf("Linked list after deleting the node at position 1: \n");
+    printf("Linked list after deleting the node at position : \n");
+    deleteAtPosition(&head, -1);
+    // deleteAtPosition(&head, 3);
+    // deleteAtPosition(&head, 0);
+    // deleteAtPosition(&head, 2);
     deleteAtPosition(&head, 1);
     print(head);
 
