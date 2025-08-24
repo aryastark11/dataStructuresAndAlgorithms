@@ -15,6 +15,7 @@ Space: O(1) extra space (only head pointer needed)
 #include <stdio.h>
 #include <stdlib.h>
 
+void insertAtFirst(struct Node** head, int value);
 // Structure to denote a node in SINGLY LINKEDLIST.
 struct Node {
     int data;
@@ -69,8 +70,33 @@ void insertAtEnd(struct Node** head, int value){
     return;
 };
 
-void insertAtPosition(){
+void insertAtPosition(struct Node** head, int value, int position){
+    // calculate the length of the linkedList.
+    int len = 0;
+    struct Node* tempNode = *head;
+    while(tempNode != NULL){
+        len = len + 1;
+        tempNode = tempNode->next;
+    }
+    // if position is greater than the length of the linkedList, return.
+    if(position > len || position < 0){
+        printf("Position is invalid, so cannot be inserted\n");
+        return;
+    }
 
+    if(position==0){
+        insertAtFirst(head, value);
+        return;
+    }
+
+    tempNode = *head;
+    while(position>1){
+        tempNode = tempNode->next;
+        position = position - 1;
+    }
+    struct Node* newNode = createNode(value);
+    newNode->next = tempNode->next;
+    tempNode->next = newNode;
 }
 
 void deleteFromFirst(struct Node** head){
@@ -129,10 +155,19 @@ int main() {
     print(head);
     
     // Positioning index starts from 0 to len(LinkedList) - 1
-    // printf("Linked list after inserting the node:15 at position 2 \n");
-    // insertAtPosition(&head, 15, 2);
-    // print(head);
-    
+    printf("Linked list after inserting the node:150 at position 2 \n");
+    insertAtPosition(&head, 15, 2);
+    print(head);
+    printf("Linked list after inserting the node:150 at position -1 \n");
+    insertAtPosition(&head, 15, -1);
+    print(head);
+    printf("Linked list after inserting the node:150 at position 0 \n");
+    insertAtPosition(&head, 15, 0);
+    print(head);
+    printf("Linked list after inserting the node:150 at position 9 \n");
+    insertAtPosition(&head, 15, 9);
+    print(head);
+
     printf("Linked list after deleting the first node: \n");
     deleteFromFirst(&head);
     print(head);
@@ -147,9 +182,9 @@ int main() {
     print(head);
 
     // Positioning index starts from 0 to len(LinkedList) - 1
-    // printf("Linked list after deleting the node at position 1: \n");
-    // deleteAtPosition(&head, 1);
-    // print(head);
+    printf("Linked list after deleting the node at position 1: \n");
+    deleteAtPosition(&head, 1);
+    print(head);
 
     return 0;
 }
