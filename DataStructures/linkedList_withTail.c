@@ -69,8 +69,7 @@ struct Node {
 // Function to print the full LinkedList.
 void print(struct Node* head, struct Node* tail){
     struct Node* tempNode = head;
-    printf("current HEAD = %d \t", head->data);
-    printf("current TAIL = %d \n", tail->data);
+    printf("current HEAD = %d\t, current TAIL = %d\t", head->data, tail->data);
     printf("Printing the whole LINKED_LIST\n");
     while(tempNode != NULL){
         printf(" %d ->", tempNode->data);
@@ -100,7 +99,7 @@ void insertAtFirst(struct Node** head, struct Node** tail, int value){
 };
 
 void insertAtEnd(struct Node** head, struct Node** tail, int value){
-    // Insert at the beginning of the linkedList.
+    // Insert at the end of the linkedList.
     struct Node* newNode = createNode(value);
     if (*head == NULL){
         *head = newNode;
