@@ -130,8 +130,38 @@ void deleteFromEnd(struct Node** head){
     tempNode->next = NULL;
 }
 
-void deleteAtPosition(){
+void deleteAtPosition(struct Node** head, int position){
+    // calculate the length of the linkedList.
+    int len = 0;
+    struct Node* tempNode = *head;
+    while(tempNode != NULL){
+        len = len + 1;
+        tempNode = tempNode->next;
+    }
+    // if position is greater than the length of the linkedList, return.
+    if(position >= len || position < 0){
+        printf("Position selected is invalid, so element cannot be deleted\n");
+        return;
+    }
 
+    if(position==0){ // delete the HEAD
+        deleteFromFirst(head);
+        return;
+    }
+    if(position == len-1){ // delete the last node
+        deleteFromEnd(head);
+        return;
+    }
+
+    tempNode = *head;
+    int index = 0;
+    while(index<position-1){
+        tempNode = tempNode->next;
+        index = index + 1;
+    } // tempNode is the node that is before the node to be deleted (Previous node.)
+    struct Node* nodeToBeDeleted = tempNode->next;
+    tempNode->next = nodeToBeDeleted->next; // next->next;
+    free(nodeToBeDeleted);  // delete or remove the node.
 }
 
 
@@ -182,7 +212,12 @@ int main() {
     print(head);
 
     // Positioning index starts from 0 to len(LinkedList) - 1
-    printf("Linked list after deleting the node at position 1: \n");
+    printf("Linked list after deleting the node at position : \n");
+    deleteAtPosition(&head, -1);
+    // deleteAtPosition(&head, 3);
+    // deleteAtPosition(&head, 0);
+
+    // deleteAtPosition(&head, 2);
     deleteAtPosition(&head, 1);
     print(head);
 
