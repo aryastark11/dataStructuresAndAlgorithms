@@ -1,6 +1,6 @@
 This folder contains the DATA STRUCUTRES implemented in C and C++
 
-  * Array
+  * Arrays
     * 1D
     * 2D (Multi-dimensional)
     * dynamic arrays using Vectors (C++)
