@@ -18,17 +18,32 @@ Space: O(1) extra space (only head pointer needed)
 
 malloc - allocate memory (create node)
 free - delete memory that is allocated.
+
+===============================================================================
 */
+
 
 #include <stdio.h>
 #include <stdlib.h>
 
+
+// function prototypes.
+void print(struct Node* head);
+struct Node* createNode(int value);
 void insertAtFirst(struct Node** head, int value);
+void insertAtEnd(struct Node** head, int value);
+void insertAtPosition(struct Node** head, int value, int position);
+void deleteFromFirst(struct Node** head);
+void deleteFromEnd(struct Node** head);
+void deleteAtPosition(struct Node** head, int position);
+
+
 // Structure to denote a node in SINGLY LINKEDLIST.
 struct Node {
     int data;
     struct Node* next;    // pointer to a structure node. Hence its of type Node as well. 
 };
+
 
 // Function to print the full LinkedList.
 void print(struct Node* head){
@@ -41,6 +56,7 @@ void print(struct Node* head){
     printf("\n");
 }
 
+
 struct Node* createNode(int value){
     // create a new struct Node.
     // assign data = value passed and address of next Node = NULL.
@@ -51,6 +67,7 @@ struct Node* createNode(int value){
     return newNode;
 };
 
+
 void insertAtFirst(struct Node** head, int value){
     // Insert at the beginning of the linkedList.
     struct Node* newNode;
@@ -59,6 +76,7 @@ void insertAtFirst(struct Node** head, int value){
     *head = newNode; // HEAD = new Node ( first node is the new node created)
     return;
 };
+
 
 void insertAtEnd(struct Node** head, int value){
     // Insert at the beginning of the linkedList.
@@ -77,6 +95,7 @@ void insertAtEnd(struct Node** head, int value){
     tempNode->next = newNode; // create the LINK.
     return;
 };
+
 
 void insertAtPosition(struct Node** head, int value, int position){
     // calculate the length of the linkedList.
@@ -107,6 +126,7 @@ void insertAtPosition(struct Node** head, int value, int position){
     tempNode->next = newNode;
 }
 
+
 void deleteFromFirst(struct Node** head){
     // Delete at the beginning of the linkedList.
     struct Node* tempNode;
@@ -116,6 +136,7 @@ void deleteFromFirst(struct Node** head){
     // assign HEAD equal to second node.
     *head = tempNode;
 }
+
 
 void deleteFromEnd(struct Node** head){
     // Delete at the end of the linkedList.
@@ -137,6 +158,7 @@ void deleteFromEnd(struct Node** head){
     free(tempNode->next);
     tempNode->next = NULL;
 }
+
 
 void deleteAtPosition(struct Node** head, int position){
     // calculate the length of the linkedList.
