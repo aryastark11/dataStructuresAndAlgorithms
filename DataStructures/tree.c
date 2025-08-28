@@ -96,8 +96,8 @@ void printPostOrder(struct Node* root);
 void printPreOrder(struct Node* root);
 void printLevelOrder(struct Node* root);
 struct Node* createNode(int value);
-// void deleteFromFirst(struct Node** head);
-// void deleteFromEnd(struct Node** head);
+void calculateHeightOfTree(struct Node** root);
+void calculateDiameterOfTree(struct Node** root);
 // void deleteAtPosition(struct Node** head, int position);
 
 
@@ -189,19 +189,26 @@ int main() {
   struct Node* n2 = createNode(20);
   struct Node* n3 = createNode(30);
   struct Node* n4 = createNode(40);
-
+  struct Node* n5 = createNode(50);
+  struct Node* n6 = createNode(60);
+  struct Node* n7 = createNode(70);
   // create link in the tree.
   // STRUCTURE of the tree now:
   //         root(100)
   //        /     \
   //      n1(10)  n2(20)
-  //             /   \
-  //          n3(30)  n4(40)
+  //             /     \
+  //          n3(30)   n4(40)
+  //         /   \       /
+  //     n5(50) n6(60) n7(70) 
 
   root->left = n1;
   root->right = n2;
   n2->left = n3;
   n2->right = n4;
+  n3->left = n5;
+  n3->right = n6;
+  n4->left = n7;
   // display the complete tree through Traversal
 
   // Depth-First traversal
