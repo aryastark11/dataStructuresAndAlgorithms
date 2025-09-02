@@ -94,10 +94,10 @@ struct Node {
 void printInOrder(struct Node* root);
 void printPostOrder(struct Node* root);
 void printPreOrder(struct Node* root);
-void printLevelOrder(struct Node* root);
+void printLevelOrder(struct Node* root, int treeHeight);
 struct Node* createNode(int value);
-void calculateHeightOfTree(struct Node** root);
-void calculateDiameterOfTree(struct Node** root);
+int calculateHeightOfTree(struct Node *root);
+void calculateDiameterOfTree(struct Node *root);
 // void deleteAtPosition(struct Node** head, int position);
 
 
@@ -152,21 +152,36 @@ void printPostOrder(struct Node *root)
   printf("%d->", root->data);
 }
 
-
-void printLevelOrder(struct Node *root)
-{
-  // LEVEL-ORDER traversal of tree.
-  // using RECURSION
+void currentLevel(struct Node *root, int level, int treeHeight){
   if(root == NULL)
   {
     printf("Empty tree\n");
     return;
   }
-  if (root->left)
-      printLevelOrder(root->left);
-  printf("%d->", root->data);
-  if (root->right)
-      printLevelOrder(root->right);
+  if(level > 1+treeHeight){
+    printf("Invalid Entry\n");
+    return;
+  }
+  if(level == 1){
+    printf("\t%d\t", root->data);
+  }
+  else if (level>1){
+    if(root->left)
+      currentLevel(root->left, level-1, treeHeight);
+    if(root->right)
+      currentLevel(root->right, level-1, treeHeight);
+  }
+}
+
+
+void printLevelOrder(struct Node *root, int treeHeight)
+{
+  // LEVEL-ORDER traversal of tree.
+  // using RECURSION
+  for(int i=1; i<=treeHeight+1; i++){
+    currentLevel(root, i, treeHeight);
+    printf("\n");
+  }
 }
 
 
@@ -178,6 +193,29 @@ struct Node* createNode(int value)
   newNode->left = NULL;
   newNode->right = NULL;
   return(newNode);
+}
+
+
+int max(int a, int b) {
+    if (a > b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+
+int leftHeight = 0, rightHeight = 0;
+int calculateHeightOfTree(struct Node *root){
+  // Calculate the height of the tree.
+  // using RECURSION
+  if(root == NULL)
+  {
+    return -1;
+  }
+  leftHeight = calculateHeightOfTree(root->left);
+  rightHeight = calculateHeightOfTree(root->right);
+  return 1 + max(leftHeight, rightHeight); // root is added as one height
 }
 
 
@@ -220,10 +258,15 @@ int main() {
   printf("\nPostOrder Traversal\n");
   printPostOrder(root);
 
+  printf("\n Height of the TREE - \t");
+  int treeHeight = calculateHeightOfTree(root);
+  printf("%d\n", treeHeight);
+  currentLevel(root, 4, treeHeight);
+
   // Breadth-First traversal
-  printf("\n\n \t BREADTH-FIRST TRAVERSAL METHODS\n");
-  printf("\n Level Order Traversal - to be implemented\n");
-  //printLevelOrder(root);
+  printf("\n \t BREADTH-FIRST TRAVERSAL METHODS\n");
+  printf("\n Level Order Traversal\n");
+  printLevelOrder(root, treeHeight);
 
   return 0;
 }
