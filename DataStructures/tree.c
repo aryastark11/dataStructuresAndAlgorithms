@@ -97,7 +97,7 @@ void printPreOrder(struct Node* root);
 void printLevelOrder(struct Node* root, int treeHeight);
 struct Node* createNode(int value);
 int calculateHeightOfTree(struct Node *root);
-void calculateDiameterOfTree(struct Node *root);
+int calculateDiameterOfTree(struct Node *root);
 // void deleteAtPosition(struct Node** head, int position);
 
 
@@ -219,6 +219,22 @@ int calculateHeightOfTree(struct Node *root){
 }
 
 
+// Complexity
+// Time Complexity - O(n)
+// Space complexity - O(h) {height of the tree}
+int result = 0, left = 0, right = 0;
+int calculateDiameterOfTree(struct Node *root){
+  if(root == NULL)
+  {
+    return 0;
+  }
+  left = calculateDiameterOfTree(root->left);
+  right = calculateDiameterOfTree(root->right);
+  result = max(result, left + right);
+  return 1 + max(left, right);
+}
+
+
 int main() {
   // Create ROOT node
   struct Node* root = createNode(100);
@@ -240,13 +256,31 @@ int main() {
   //         /   \       /
   //     n5(50) n6(60) n7(70) 
 
-  root->left = n1;
-  root->right = n2;
-  n2->left = n3;
-  n2->right = n4;
-  n3->left = n5;
-  n3->right = n6;
-  n4->left = n7;
+  // root->left = n1;
+  // root->right = n2;
+  // n2->left = n3;
+  // n2->right = n4;
+  // n3->left = n5;
+  // n3->right = n6;
+  // n4->left = n7;
+
+  root->right = n1;
+  n1->left = n2;
+  n1->right = n3;
+  n2->left = n4;
+  n2->right = n5;
+  n3->left = n6;
+  n3->right = n7;
+
+  // STRUCTURE of the tree now:
+  //         root(100)
+  //             \
+  //              n1
+  //             /   \
+  //           n2     n3
+  //         /   \    /  \
+  //       n4     n5 n6   n7
+
   // display the complete tree through Traversal
 
   // Depth-First traversal
@@ -268,5 +302,8 @@ int main() {
   printf("\n Level Order Traversal\n");
   printLevelOrder(root, treeHeight);
 
+  //printf("%d\n", result);
+  printf("%d\n", calculateDiameterOfTree(root));
+  //printf("%d\n", result);
   return 0;
 }

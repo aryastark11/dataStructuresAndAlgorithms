@@ -50,6 +50,7 @@ MEMORY MANAGEMENT:
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 
 // array representing binary tree.
@@ -129,9 +130,21 @@ void printPostOrder(int index)
 }
 
 
+int floorLog(int n){
+  double result;
+  result = log2(n);
+  int floor_log2_n = (int) floor(result);
+  return floor_log2_n;
+}
+
+
 int calculateHeightOfTree(int index){
   // Calculate the height of the tree.
   // using RECURSION
+  if(index<0 || index > sizeof(binary_tree_array)/sizeof(binary_tree_array[0])) {
+    return -1;
+  }
+  return floorLog(index);
 }
 
 
@@ -144,7 +157,7 @@ int main() {
   printf("%d\n", right_child_index(2));
   printf("%d\n", get_data(7, binaryTreeArrayLength));
   printf("%d\n", get_data(8, binaryTreeArrayLength));
-
+  printf("%d\n", calculateHeightOfTree(0));
   // printf("\n \t DEPTH-FIRST TRAVERSAL METHODS\n");
   // printf("\nInOrder Traversal\n");
   // printInOrder(0);
