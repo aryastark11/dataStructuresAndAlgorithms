@@ -3,7 +3,7 @@
                     SINGLE LINKED LIST WITHOUT TAIL POINTER
 ===============================================================================
 
-in C, SINGLY LINKEDLIST - data and node* storing dthe value at node X and address of node (X+1)
+in C, SINGLY LINKEDLIST - data and node* storing the value at node X and address of node (X+1)
 This code has SINGLY LINKEDLIST without tail using structure.
 
 LINKED LIST WITHOUT TAIL:
