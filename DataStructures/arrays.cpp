@@ -54,6 +54,7 @@ SUMMARY: 1D ARRAY = LINEAR LIST OF ELEMENTS (STATIC/HEAP)
 - O(1) direct access, O(n) search, contiguous memory, stack or heap
 - malloc/new = allocate memory, free/delete = deallocate memory
 ===============================================================================
+*/
 
 #include <iostream>
 using namespace std;
