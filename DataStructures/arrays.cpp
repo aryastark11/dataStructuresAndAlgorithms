@@ -1,15 +1,59 @@
 // array - continuous allocation of memory of only one data type.
 
-/* This code contains array Data Structure (1D)
-The time complexity of array is as follows:
-Create - 
-Read - 
-Insert - 
-Update - 
-Delete -
-Sort - 
-Merge -
-*/
+/*
+===============================================================================
+                     ONE-DIMENSIONAL (1D) ARRAY IN C++
+===============================================================================
+
+A 1D ARRAY is a linear collection of elements, each of the same data type, stored in contiguous memory. Each element is accessed by a unique index starting at 0.
+
+STATIC 1D ARRAY:
+- Declared with a fixed size at compile-time.
+- Syntax: data_type array_name[size];
+  Example: int arr[5];
+- Memory: Contiguous allocation in stack memory.
+- Initialization: int arr[5] = {10, 20, 30, 40, 50};
+- Access: O(1) random access by index (arr[i]).
+- Pros: Fast access, simple syntax, minimal overhead.
+- Cons: Size is fixed, cannot be resized after declaration.
+
+DYNAMIC 1D ARRAY:
+- Allocated on the heap using pointers for flexible size at runtime.
+- Syntax:
+    int* array = new int[size];
+    // Initialize, use, and later deallocate with:
+    delete[] array;
+- Pros: Size decided at runtime, more flexible.
+- Cons: Manual memory management required, potential memory leaks if not freed.
+
+COMMON 1D ARRAY OPERATIONS:
+Access: O(1)
+Update: O(1) at arr[i]
+Search: O(n) (linear search required for unsorted arrays)
+Iteration: for (int i=0; i<size; ++i) arr[i]
+Space: O(n) where n = number of elements
+
+MEMORY CONSIDERATIONS:
+- Static arrays use stack (limited by system), fast allocation.
+- Dynamic arrays use heap (large sizes possible), but require delete[] to prevent leaks.
+
+STANDARD CODE EXAMPLES:
+// Static 1D Array
+int arr[5];
+
+// Dynamic 1D Array
+int* arr = new int[size];
+//... use arr[i] as needed
+delete[] arr;  // Free memory
+
+USE CASES:
+Sequences, lists of values, buffer storage, and indexing collections.
+
+===============================================================================
+SUMMARY: 1D ARRAY = LINEAR LIST OF ELEMENTS (STATIC/HEAP)
+- O(1) direct access, O(n) search, contiguous memory, stack or heap
+- malloc/new = allocate memory, free/delete = deallocate memory
+===============================================================================
 
 #include <iostream>
 using namespace std;
